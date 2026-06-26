@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { logger } from "../lib/logger";
 import { AppError } from "../errors/app.error";
+import { env } from "../config/environment";
 
 export const globalErrorHandler = (
   err: Error | AppError, 
@@ -27,7 +28,7 @@ export const globalErrorHandler = (
     });
   }
 
-  if (process.env.NODE_ENV === "development") {
+  if (env.nodeEnv === "development") {
     return res.status(statusCode).json({
       status,
       message: err.message,

@@ -1,6 +1,7 @@
 import { CorsOptions } from "cors";
+import { env } from "./environment";
 
-const allowed_origins = process.env.ALLOWED_ORIGINS?.split(",") || ["http://localhost:3000"];
+const allowed_origins =env.allowedOrigins;
 
 export const corsOptions: CorsOptions = {
   origin: (origin, callback) => {

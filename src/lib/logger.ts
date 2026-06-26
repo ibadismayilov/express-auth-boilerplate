@@ -1,7 +1,8 @@
 import winston from "winston";
 import path from "path";
+import { env } from "../config/environment";
 
-const isDevelopment = process.env.NODE_ENV === "development";
+const isDevelopment = env.nodeEnv;
 const logsDir = path.join(process.cwd(), "logs");
 
 const levels = {

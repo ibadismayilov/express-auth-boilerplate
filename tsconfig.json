@@ -6,6 +6,8 @@
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "ignoreDeprecations": "6.0",
     "typeRoots": ["./node_modules/@types", "./src/@types"],
     "types": ["jest", "node"]
@@ -13,5 +15,6 @@
     // "paths": {
     //   "@generated/*": ["src/generated/*"]
     // }
-  }
+  },
+  "include": ["src/**/*", "tests/**/*"]
 }

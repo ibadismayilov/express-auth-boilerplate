@@ -1,9 +1,10 @@
 import jwt from "jsonwebtoken";
+import { env } from "../config/environment";
 
-const JWT_SECRET = process.env.JWT_SECRET!;
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET!;
+const JWT_SECRET = env.jwt.secret!;
+const JWT_REFRESH_SECRET = env.jwt.refreshSecret!;
 
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "15m";
+const JWT_EXPIRES_IN = env.jwt.expiresIn || "15m";
 const JWT_REFRESH_EXPIRES_IN = "7d";
 
 if (!JWT_SECRET || !JWT_REFRESH_SECRET) {

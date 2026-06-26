@@ -1,9 +1,10 @@
 import { ErrorResponse, Resend } from "resend";
+import { env } from "../config/environment";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(env.resend.apiKey);
 
-const fromEmail: string = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
-const fromName: string = process.env.RESEND_FROM_NAME || "AUTH";
+const fromEmail: string = env.resend.fromEmail || "onboarding@resend.dev";
+const fromName: string = env.resend.fromName || "AUTH";
 
 export async function sendUserEmail({
   userEmail,

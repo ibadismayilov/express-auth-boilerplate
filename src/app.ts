@@ -8,6 +8,7 @@ import authRoute from "./routes/auth.routes";
 import adminSecurityRoute from "./routes/admin.security.routes";
 import { corsOptions } from "./config/cors.config";
 import { adminLimiter } from "./config/limiter.config";
+import { env } from "./config/environment";
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use(cors(corsOptions));
 app.use(httpLogger);
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser(env.cookieSecret));
 
 app.use("/api/auth", authRoute);
 app.use("/api/admin/security", adminLimiter, adminSecurityRoute);
