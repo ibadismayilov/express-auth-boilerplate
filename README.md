@@ -421,7 +421,8 @@ express-auth-boilerplate/
 │   ├── config/             # Configuration files
 │   │   ├── auth.config.ts     
 │   │   ├── cookie.config.ts   
-│   │   ├── cors.config.ts     
+│   │   ├── cors.config.ts
+|   |   ├── environment.config.ts  
 │   │   └── limiter.config.ts  
 │   ├── controllers/        # Route handlers
 │   │   ├── auth.controller.ts
