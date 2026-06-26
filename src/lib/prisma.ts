@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
-import { env } from "../config/environment";
+import { env } from "../config/environment.config";
 
 const pool = new pg.Pool({ connectionString: env.db.url});
 const adapter = new PrismaPg(pool);

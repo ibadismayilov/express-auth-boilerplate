@@ -1,6 +1,6 @@
 import winston from "winston";
 import path from "path";
-import { env } from "../config/environment";
+import { env } from "../config/environment.config";
 
 const isDevelopment = env.nodeEnv;
 const logsDir = path.join(process.cwd(), "logs");

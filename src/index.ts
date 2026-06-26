@@ -1,7 +1,7 @@
 import "dotenv/config";
 import app from "./app";
 import { connectRedis } from "./lib/redis";
-import { env } from "./config/environment";
+import { env } from "./config/environment.config";
 
 const start = async () => {
   await connectRedis();

@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { env } from "../config/environment";
+import { env } from "../config/environment.config";
 
 const JWT_SECRET = env.jwt.secret!;
 const JWT_REFRESH_SECRET = env.jwt.refreshSecret!;

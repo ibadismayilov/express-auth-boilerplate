@@ -1,5 +1,5 @@
 import { CorsOptions } from "cors";
-import { env } from "./environment";
+import { env } from "./environment.config";
 
 const allowed_origins =env.allowedOrigins;
 

@@ -8,7 +8,7 @@ import authRoute from "./routes/auth.routes";
 import adminSecurityRoute from "./routes/admin.security.routes";
 import { corsOptions } from "./config/cors.config";
 import { adminLimiter } from "./config/limiter.config";
-import { env } from "./config/environment";
+import { env } from "./config/environment.config";
 
 const app = express();
 

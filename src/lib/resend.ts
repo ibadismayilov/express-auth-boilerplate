@@ -1,5 +1,5 @@
 import { ErrorResponse, Resend } from "resend";
-import { env } from "../config/environment";
+import { env } from "../config/environment.config";
 
 const resend = new Resend(env.resend.apiKey);
 
