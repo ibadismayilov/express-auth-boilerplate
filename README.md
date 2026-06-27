@@ -444,7 +444,7 @@ express-auth-boilerplate/
 │   │   └── validate.middleware.ts
 │   ├── routes/             # API routes
 │   │   ├── auth.routes.ts
-│   │   └── admin.security.routes.ts
+│   │   └── admin.routes.ts
 │   ├── services/           # Business logic
 │   │   ├── auth.service.ts
 │   │   ├── admin.service.ts

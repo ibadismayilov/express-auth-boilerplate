@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import { globalErrorHandler } from "./middlewares/error.middleware";
 import { httpLogger } from "./middlewares/http-logger.middleware";
 import authRoute from "./routes/auth.routes";
-import adminSecurityRoute from "./routes/admin.security.routes";
+import adminSecurityRoute from "./routes/admin.routes";
 import { corsOptions } from "./config/cors.config";
 import { adminLimiter } from "./config/limiter.config";
 import { env } from "./config/environment.config";
