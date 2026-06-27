@@ -23,6 +23,8 @@ model User {
   verificationExpires DateTime?
   createdAt           DateTime  @default(now())
 
+  isDeleted           Boolean @default(false)
+
   ipAddress String?
   userAgent String?
 

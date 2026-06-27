@@ -15,8 +15,7 @@ import {
   TooManyRequestsError,
   UnauthorizedError,
 } from "../errors/custom.error";
-import { UAParser } from "ua-parser-js";
-import { toSafeUser } from "../utils/user.util";
+import { getUserAgentString, toSafeUser, USER_PUBLIC_SELECT } from "../utils/user.util";
 
 export const registerUser = async (
   userData: IRegisterInput & { ipAddress: string; userAgent: string }
@@ -35,50 +34,33 @@ export const registerUser = async (
       "Too many requests. Please wait 1 minute before requesting a new OTP."
     );
 
-  const uaResult = new UAParser(userAgent).getResult();
-  const userAgentString = `${uaResult.browser.name || "Unknown Browser"} (${uaResult.os.name || "Unknown OS"})`;
+  const userAgentString = getUserAgentString(userAgent);
 
   const code = generateOTP();
   const hashedPassword = await hashPassword(password);
 
-  let user;
-
-  if (existingUser && existingUser.isVerified === false) {
-    user = await prisma.user.update({
-      where: { email },
-      data: {
-        username,
-        password: hashedPassword,
-        ipAddress: ipAddress,
-        userAgent: userAgentString,
-      },
-      select: {
-        id: true,
-        username: true,
-        email: true,
-        role: true,
-        createdAt: true,
-      },
-    });
-  } else {
-    user = await prisma.user.create({
-      data: {
-        username,
-        email,
-        password: hashedPassword,
-        isVerified: false,
-        ipAddress: ipAddress,
-        userAgent: userAgentString,
-      },
-      select: {
-        id: true,
-        username: true,
-        email: true,
-        role: true,
-        createdAt: true,
-      },
-    });
-  }
+  const user = existingUser && existingUser.isVerified === false
+    ? await prisma.user.update({
+        where: { email },
+        data: {
+          username,
+          password: hashedPassword,
+          ipAddress: ipAddress,
+          userAgent: userAgentString,
+        },
+        select: USER_PUBLIC_SELECT,
+      })
+    : await prisma.user.create({
+        data: {
+          username,
+          email,
+          password: hashedPassword,
+          isVerified: false,
+          ipAddress: ipAddress,
+          userAgent: userAgentString,
+        },
+        select: USER_PUBLIC_SELECT,
+      });
 
   const otpKey = redisKeys.otp(email);
 
@@ -106,13 +88,14 @@ export const loginUser = async (
 
   const user = await prisma.user.findUnique({ where: { email } });
 
+  if(!user || user.isDeleted) throw new UnauthorizedError("User not found.");
+
   if (!user || !(await comparePassword(user.password, password)))
     throw new UnauthorizedError("Email or password is incorrect.");
 
   if (!user.isVerified) throw new ForbiddenError("Please confirm your email first.");
 
-  const uaResult = new UAParser(userAgent).getResult();
-  const userAgentString = `${uaResult.browser.name || "Unknown Browser"} (${uaResult.os.name || "Unknown OS"})`;
+  const userAgentString = getUserAgentString(userAgent);
 
   const accessToken = signAccessToken(user.id);
   const refreshToken = signRefreshToken(user.id);
@@ -246,13 +229,7 @@ export const refreshUserToken = async (token: string) => {
 export const getUserById = async (userId: string) => {
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    select: {
-      id: true,
-      email: true,
-      username: true,
-      role: true,
-      createdAt: true,
-    },
+    select: USER_PUBLIC_SELECT,
   });
 
   if (!user) throw new NotFoundError("User not found.");

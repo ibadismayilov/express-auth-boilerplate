@@ -35,6 +35,7 @@ A production-ready authentication and authorization backend built with **Express
 ### Security
 - ✅ **Rate Limiting** - User-level, IP-level, and endpoint-specific limits
 - ✅ **IP Banning System** - Admin can ban/unban IPs
+- ✅ **User Banning System** - Admin can ban/unban Users
 - ✅ **CORS Protection** - Configurable origin whitelist
 - ✅ **Security Headers** - Helmet.js integration
 - ✅ **Input Validation** - Zod schema validation
@@ -434,6 +435,7 @@ express-auth-boilerplate/
 │   ├── middlewares/        # Express middlewares
 │   │   ├── auth.middleware.ts
 │   │   ├── error.middleware.ts
+│   │   ├── checkBan.middleware.ts
 │   │   ├── http-logger.middleware.ts
 │   │   ├── ip.ban.middleware.ts
 │   │   ├── ip.rate-limiter.ts
@@ -537,6 +539,7 @@ express-auth-boilerplate/
 - `password`: Hashed password (Argon2id)
 - `role`: USER or ADMIN
 - `isVerified`: Email verification status
+- `isDeleted`: To soft delete
 - `createdAt`: Account creation timestamp
 
 **RefreshToken Model**

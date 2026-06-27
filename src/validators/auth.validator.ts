@@ -19,26 +19,6 @@ export const loginSchema = z.object({
   }),
 });
 
-
-export const banIpSchema = z.object({
-  body: z.object({
-    ip: z
-      .string()
-      .ip({ version: "v4" })
-      .or(z.string().ip({ version: "v6" })),
-  }),
-});
-
-export const unbanIpSchema = z.object({
-  body: z.object({
-    ip: z
-      .string()
-      .ip({ version: "v4" })
-      .or(z.string().ip({ version: "v6" })),
-  }),
-});
-
-
 export const updateUserSchema = z.object({
   body: z.object({
     username: z.string().min(2, "Username is too short").max(30, "Username is too long").optional(),
